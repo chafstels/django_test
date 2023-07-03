@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     #APPS
     "post",
+    "shoop_books",
 ]
 
 MIDDLEWARE = [

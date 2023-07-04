@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from post.views import PostAPIView, PostAPIList
+from shoop_books.views import users_list
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("api/v1/post/", PostAPIList.as_view()),
+    path("api/v1/post/<int:pk>/", PostAPIView.as_view()),
+    path('users_list/', users_list)
 ]

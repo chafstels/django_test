@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from post.views import PostAPIView, PostAPIList
-from shoop_books.views import users_list
+from shoop_books.views import users_list, users_list_api_view, user_detail, create_users, delete_users, update_users
 from university.views import StudentAPIList, StudentAPIUpdate, StudentAPIDetailView, CourseAPIList, CourseAPIUpdate, CourseAPIDetailView
 
 urlpatterns = [
@@ -29,4 +29,9 @@ urlpatterns = [
     path('api/v1/student/<int:pk>/', StudentAPIUpdate.as_view()),
     path('api/v1/course/', CourseAPIList.as_view()),
     path('api/v1/course/<int:pk>/', CourseAPIDetailView.as_view()),
+    path('api/listing/', users_list_api_view),
+    path('api/usersdetail_shoop/<int:id>/', user_detail),
+    path('api/usersdetail_shoop/create/', create_users),
+    path('api/usersdetail_shoop/delete/<int:id>/', delete_users),
+    path('api/usersdetail_shoop/update/<int:id>/', update_users),
 ]

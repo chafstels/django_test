@@ -8,7 +8,8 @@ class Category(models.Model):
         return self.title
 
 class Post(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True, related_name='posts',
+                                 related_query_name='posts')
     title = models.CharField(max_length=100)
     body = models.TextField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)

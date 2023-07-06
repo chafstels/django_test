@@ -51,3 +51,4 @@ class PostAPIView(APIView):
 
 
         return Response({"posts": "delete post" + str(pk)})
+

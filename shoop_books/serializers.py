@@ -1,4 +1,4 @@
-from .models import Users
+from .models import Users, Books
 from rest_framework import serializers
 
 # class UsersSerializer(serializers.ModelSerializer):
@@ -21,3 +21,8 @@ class UsersSerializer(serializers.Serializer):
         instance.password = validated_data.get('password', instance.password)
         instance.save()
         return instance
+
+class BooksSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Books
+        fields = '__all__'

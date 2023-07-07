@@ -3,9 +3,10 @@ from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
+from rest_framework.views import APIView
 
-from .models import Users
-from .serializers import UsersSerializer
+from .models import Users, Books
+from .serializers import UsersSerializer, BooksSerializer
 
 
 # Create your views here.
@@ -56,5 +57,47 @@ def update_users(request, id):
     serializer.is_valid(raise_exception=True)
     serializer.save()
     return Response(serializer.data, status=201)
+
+
+#APIView
+class BooksListAPIView(APIView):
+    def get(self, request):
+        queryset = Books.objects.all()
+        serializer = BooksSerializer(queryset, many=True)
+        return Response(serializer.data)
+
+
+class BooksDetailAPIView(APIView):
+    def get(self, request, id):
+        book = get_object_or_404(Books, id=id)
+        serializer = BooksSerializer(book)
+        return Response(serializer.data)
+
+class BooksCreateAPIView(APIView):
+    def post(self, request):
+        serializer = BooksSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+class BooksDeleteAPIView(APIView):
+    def delete(self, request, id):
+        books = get_object_or_404(Books, id=id)
+        books.delete()
+        return Response(status=204)
+
+class BooksUpdateAPIView(APIView):
+    def put(self, request, id):
+        book = get_object_or_404(Books, id=id)
+        serializer = BooksSerializer(book, request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=201)
+    def patch(self, request, id):
+        book = get_object_or_404(Books,id=id)
+        serializer = BooksSerializer(book, request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=201)
 
 
